@@ -45,6 +45,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DemoScreen(modifier: Modifier = Modifier) {
     var input by remember { mutableStateOf("") }
+    var result by remember { mutableStateOf("") }
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -71,17 +72,21 @@ fun DemoScreen(modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(Modifier.height(24.dp))
-        // Результат
         Text(
-            text = "Результат",
+            text = result,
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(Modifier.height(24.dp))
-        // Кнопка ОК
-        Button(onClick = { }) {
+        Button(onClick = {
+            result = when {
+                input.isEmpty() -> "Введите букву!"
+                input.equals("d", ignoreCase = true) -> "это Дуб"
+                else -> "Это не Дуб"
+            }
+        })  {
             Text("ОК", fontSize = 18.sp)
         }
     }
